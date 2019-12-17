@@ -1,0 +1,39 @@
+Package: MsBackendHSDS
+Title: Mass spectrometry data backend
+Version: 0.0.1
+Description: Mass spectrometry (MS) data backend supporting import and handling
+	     of MS spectra from HDF5 files served from an HDF5 server.
+Authors@R: c(person(given = "Laurent", family = "Gatto",
+	   comment = c(ORCID = "0000-0002-1520-2268"),
+	   email = "laurent.gatto@uclouvain.be",
+	   role = "aut"),
+	   person(given = "Johannes", family = "Rainer",
+	   comment = c(ORCID = "0000-0002-6977-7147"),
+	   email = "Johannes.Rainer@eurac.edu",
+	   role = c("aut", "cre")),
+	   person(given = "Sebastian", family = "Gibb",
+	   comment = c(ORCID = "0000-0001-7406-4443"),
+	   email = "mail@sebastiangibb.de",
+	   role = "aut"))
+Depends:
+    R (>= 3.6.0),
+    Spectra
+Imports:
+    rhdf5client
+    methods
+Suggests:
+    testthat,
+    knitr (>= 1.1.0),
+    roxygen2,
+    BiocStyle (>= 2.5.19),
+    rmarkdown
+Remotes:
+   RforMassSpectrometry/Spectra
+License: Artistic-2.0
+LazyData: yes
+VignetteBuilder: knitr
+BugReports: https://github.com/RforMassSpectrometry/MsBackendHSDS/issues
+URL: https://github.com/RforMassSpectrometry/MsBackendHSDS
+biocViews: Infrastructure, Proteomics, MassSpectrometry, Metabolomics
+RoxygenNote: 6.1.1
+Roxygen: list(markdown=TRUE)
