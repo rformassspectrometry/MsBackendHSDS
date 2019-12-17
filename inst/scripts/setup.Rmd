@@ -1,0 +1,22 @@
+# Data and server setup
+
+Here we first create the test data that we will use later in combination with an
+[h5serv](https://github.com/HDFGroup/h5serv) instance.
+
+## Data preparation
+
+We will use the two *sciex* test files from the `msdata` package.
+
+```{r}
+library(Spectra)
+library(msdata)
+
+fls <- dir(system.file("sciex", package = "msdata"), full.names = TRUE)
+
+sps <- Spectra(fls, backend = MsBackendHdf5Peaks(), source = MsBackendMzR())
+
+```
+
+## Server setup
+
+## Tests with the `hdf5client` package
