@@ -13,10 +13,38 @@ library(msdata)
 
 fls <- dir(system.file("sciex", package = "msdata"), full.names = TRUE)
 
-sps <- Spectra(fls, backend = MsBackendHdf5Peaks(), source = MsBackendMzR())
+sps <- Spectra(fls, backend = MsBackendHdf5Peaks(),
+               source = MsBackendMzR(), hdf5path = normalizePath("."))
 
 ```
 
 ## Server setup
 
+To use the `h5serv` we install first the according docker image with `docker
+pull hdfgroup/h5serv`. The server can then be started with `docker run -p
+5000:5000 -d -v <mydata>:/data hdfgroup/h5serv` where `<mydata>` is the folder
+path that contains any HDF5 files we want to serve. Use the browser to connect
+to port 5000 to see if the server has started.
+
+
 ## Tests with the `hdf5client` package
+
+Assuming we have started the above server we try to access files on it. Note
+that there might be some problems if `R` is running within a docker too.
+
+```{r}
+library(rhdf5client)
+s <- HSDSSource("http://host.docker.internal:5000", type = "h5serv")
+f <- HSDSFile(s, "20171016_POOL_POS_1_105-134.hdfgroup.org")
+f <- HSDSFile(s, "sciex")
+
+s <- HSDSSource("http://localhost:5000", type = "h5serv")
+f <- HSDSFile(s, "20171016_POOL_POS_1_105-134.h5")
+d <- HSDSDataset(f, "/spectra")
+
+HSDSArray("http://host.docker.internal:5000", "h5serv", "20171016_POOL_POS_1_105-134.hdfgroup.org",
+          "spectra/1")
+
+s <- H5S_source("http://host.docker.internal:5000", "hdfgroup.org")
+
+```
